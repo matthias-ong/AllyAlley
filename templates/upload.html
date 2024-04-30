@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Upload
+{% endblock %}
+
+{% block main %}
+    <h3>Upload Picture or Video</h3>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <div class="mb-3">
+            <input autocomplete="off" autofocus class="form-control mx-auto w-50" name="title" placeholder="Title" type="text">
+        </div>
+        <div class="mb-3">
+            <textarea autocomplete="off" autofocus class="form-control mx-auto w-50" name="body" placeholder="Body Text"></textarea>
+        </div>
+        <div class="mb-3">
+            <input type="file" name="file" accept="image/*, video/*">
+        </div>
+        <div class="mb-3">
+            <button class="btn btn-primary" type="submit">Upload</button>
+        </div>
+    </form>
+{% endblock %}

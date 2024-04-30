@@ -1,0 +1,72 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Home
+{% endblock %}
+
+{% block main %}
+
+<script src="{{ url_for('static', filename='js/like.js') }}"></script>
+
+<main class="container py-5">
+    <div class="row">
+        <div class="col-12">
+            <div id="post-{{ post.id }}" class="card">
+                <h3 class="card-title"><a href="/">{{ post.title }}</a></h3>
+                    {% if post.is_video %}
+                    <video src="../../{{ post.path }}" class="card-img-top" controls>Post Video</video>
+                    {% else %}
+                    <img src="../../{{ post.path }}" class="card-img-top" alt="Post Image">
+                    {% endif %}
+                    <div class="card-body">
+                        <p class="card-text">{{ post.body }}</p>
+                        <p class="card-text">
+                            <a id="like-symbol-{{ post.id }}" class="heart" onclick="likePost(event, {{ post.id }})">
+                                {% if post.user_liked %}
+                                &#9829;
+                                {% else %}
+                                &#9825;
+                                {% endif %}
+                            </a>
+                            <span id="like-count-{{ post.id }}">{{ post.likes_count }}</span>
+                        </p>
+                        <p class="card-text"> Posted by: <a href="/profile/{{post.userid}}">{{ post.user }}</a></p>
+                        <p class="card-text">{{ post.timestamp }}</p>
+                        {% if post.userid == session["user_id"] %}
+                        <form method="post" action="/delete_post/{{ post.id }}">
+                            <input type="submit" value="Delete">
+                        </form>
+                        {% endif %}
+                    </div>
+            </div>
+
+            {% if comments %}
+                {% for comment in comments %}
+                    <div id="comment-{{ comment.id }}" class="card">
+                        <h3 class="card-title">Comments</h3>
+                            <div class="card-body">
+                                <p class="card-text"><a href="/profile/{{comment.userid}}">{{ comment.user }}</a></p>
+                                <p class="card-text">{{ comment.comment }}</p>
+                                <p class="card-text">{{ comment.timestamp }}</p>
+                                {% if comment.userid == session["user_id"] %}
+                                    <form method="post" action="/delete_comment/{{ comment.id }}">
+                                        <input type="submit" value="Delete">
+                                    </form>
+                                {% endif %}
+                            </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p><b>No comments found.</b></p>
+            {% endif %}
+
+            <form method="post" action="/comment/{{ post.id }}/{{ session["user_id"] }}">
+                <p><b></b>Add Comments:</b></p>
+                <textarea required autocomplete="off" autofocus class="form-control mx-auto w-50" name="body" placeholder="Comment"></textarea>
+                <button type="submit">Comment</button>
+            </form>
+
+        </div>
+    </div>
+</main>
+{% endblock %}

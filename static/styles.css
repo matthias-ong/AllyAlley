@@ -1,0 +1,48 @@
+/* Size for brand */
+nav .navbar-brand
+{
+    font-size: xx-large;
+}
+
+/* Colors for brand */
+nav .navbar-brand .blue
+{
+    color: #537fbe;
+}
+nav .navbar-brand .red
+{
+    color: #ea433b;
+}
+nav .navbar-brand .yellow
+{
+    color: #f5b82e;
+}
+nav .navbar-brand .green
+{
+    color: #2e944b;
+}
+
+.card {
+    max-width: 75%;
+    margin: 0 auto; /* Centers the element horizontally */
+    background-color: AliceBlue;
+}
+.card-img-top {
+    max-width: 100%;
+    max-height: 500px;
+    object-fit: contain;
+}
+
+/* Like Icon */
+.heart {
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* https://www.freepik.com/free-vector/school-building-near-road-illustration_3297804.htm#fromView=search&page=1&position=11&uuid=10fd9972-b952-4e5b-b41d-7954871eb548 */
+body {
+    background-image: url('/static/alley.svg');
+    background-repeat: no-repeat; /* Prevent background from repeating */
+    background-size: cover; /* Cover the entire background */
+    background-attachment: fixed; /* Keep the background fixed while scrolling */
+}
