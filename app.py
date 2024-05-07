@@ -4,6 +4,7 @@ from cs50 import SQL
 from flask import Flask, flash, redirect, render_template, request, session, send_from_directory, jsonify
 from flask_session import Session
 from werkzeug.security import check_password_hash, generate_password_hash
+from werkzeug.utils import secure_filename
 import datetime
 
 from helpers import apology, login_required
@@ -246,9 +247,9 @@ def upload():
                        id=session["user_id"], title=title, body=body)
 
             # Retrieve the id of the newly inserted post
-            post_id = db.execute("SELECT last_insert_rowid()")[
-                0]["last_insert_rowid()"]
-            file_extension = os.path.splitext(file.filename)[1]
+            post_id = db.execute("SELECT last_insert_rowid()")[0]["last_insert_rowid()"]
+            filename = secure_filename(file.filename)
+            file_extension = os.path.splitext(filename)[1]
             # Generate filepath using post ID
             # Prefix filename with post_id, postfix with file extension
             filename = f"{session["user_id"]}_{post_id}{file_extension}"
