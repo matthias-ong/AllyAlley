@@ -169,10 +169,11 @@ def delete_post(post_id):
         db.execute("DELETE FROM posts WHERE id=?", post_id)
 
         # Delete the associated file
-        filepath = f"{post[0]['userid']}_{post_id}"
+        filepath = post[0]['path']
         file_extension = os.path.splitext(filepath)[1]
         filepath = os.path.join(app.config['UPLOAD_FOLDER'], f"{
                                 post[0]['userid']}_{post_id}{file_extension}")
+        print(f"Delete {filepath}")
         if os.path.exists(filepath):
             os.remove(filepath)
 
